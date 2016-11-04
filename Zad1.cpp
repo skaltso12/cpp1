@@ -1,4 +1,4 @@
-// Zad1.cpp
+// Zad1.cpp - input number - output in roman digits
 #include <iostream>
 using namespace std;
 
