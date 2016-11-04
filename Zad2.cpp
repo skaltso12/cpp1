@@ -1,4 +1,4 @@
-// Zad2.cpp
+// Zad2.cpp - Is EGN valid/ output date of birth and gender
 
 #include <iostream>
 #include <iomanip>
