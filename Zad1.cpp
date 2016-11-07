@@ -7,7 +7,7 @@ int main()
 	int n;
 	cin >> n;
 	if (n < 1 || n > 3000) {
-		cout << "Invalid input!\n";
+		cout << "Invalid number!\n";
 		return 0;
 	}
 	switch (n / 1000) {
