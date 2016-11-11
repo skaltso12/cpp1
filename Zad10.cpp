@@ -25,5 +25,6 @@ int main()
 		if (abs(-a21 / a11 * a12 + a22) < 1.e-5 && abs(-a21 / a11 * b1 + b2) < 1.e-5) cout << "Many solutions";
 		else cout << "No solution";
 	}
+	cout << "\n";
 	return 0;
 }
