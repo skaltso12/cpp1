@@ -38,10 +38,12 @@ int main()
 		cout << "Bad input data!\n";
 		return 0;
 	} break;
-	case 2: if (yy % 4 != 0 || mm > 12 && yy == 0) { if (dd > 28) {
-		cout << "Bad input data!\n";
-		return 0;
-	} }
+	case 2: if (yy % 4 != 0 || mm > 12 && yy == 0) {
+		if (dd > 28) {
+			cout << "Bad input data!\n";
+			return 0;
+		}
+	}
 			else
 				if (dd > 29) {
 					cout << "Bad input data!\n";
@@ -49,7 +51,12 @@ int main()
 				}
 			break;
 	}
-	cout << setw(2) << setfill('0') << dd << "." 
+	if ((yy / 10 * 2 + yy % 10 * 4 + mm / 10 * 8 + mm % 10 * 5 + dd / 10 * 10 + dd % 10 * 9 + egn / 1000 % 10 * 7 +
+		egn / 100 % 10 * 3 + egn / 10 % 10 * 6) % 11 != egn % 10) {
+		cout << "Bad input data!\n";
+			return 0;
+	}
+	cout << setw(2) << setfill('0') << dd << "."
 		<< setw(2) << setfill('0') << (mm % 20) << ".";
 	if (mm < 13)
 		cout << "19" << setw(2) << setfill('0') << yy;
