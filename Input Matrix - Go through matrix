@@ -1,0 +1,68 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+void ReadMatrix(int n);
+void PrintMatrix(int n);
+void GoThroughMatrix1(int n);
+void GoThroughMatrix2(int n);
+void GoThroughMatrix3(int n);
+
+int a[10][10];
+int n;
+
+int main()
+{
+	cout << "n = "; cin >> n;
+	if (!cin || n < 2 || n > 10) {
+		cout << "Invalid input.";
+		return 0;
+	}
+	ReadMatrix(n);
+	PrintMatrix(n);
+	GoThroughMatrix1(n);
+	GoThroughMatrix2(n);
+	GoThroughMatrix3(n);
+	return 0;
+}
+void ReadMatrix(int n) {
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < n; j++) {
+			cout << "a[" << i << "][" << j << "] = "; cin >> a[i][j];
+		}
+}
+void PrintMatrix(int n) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++)
+			cout << setw(5) << a[i][j];
+		cout << "\n";
+	}
+}
+void GoThroughMatrix1(int n) {
+	for (int k = 0; k < n; k++) {
+		for (int m = n - k - 1; m < n; m++)
+			cout << setw(5) << a[m][k];
+		cout << "\n";
+	}
+}
+void GoThroughMatrix2(int n) {
+	for (int i = 0; i < n; i++) {
+		for (int k = 0; k < i + 1; k++)
+			cout << setw(5) << a[i - k][k];
+		cout << endl;
+	}
+}
+void GoThroughMatrix3(int n) {
+	for (int i = 0; i < n; i++) {
+		for (int k = 0; k < i + 1; k++)
+			cout << setw(5) << a[i - k][k];
+		cout << endl;
+	}
+	for (int i = 1; i < n; i++) {
+		int r = n - 1;
+		for (int k = i; k < n; k++) {
+			cout << setw(5) << a[r--][k];
+		}
+		cout << "\n";
+	}
+}
