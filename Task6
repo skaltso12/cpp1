@@ -4,8 +4,7 @@
 #include <string.h>
 
 // program works with values of n < 200 in seconds :D
-
-bool main()
+int main()
 {
 	int n;
 	std::cin >> n;
