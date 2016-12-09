@@ -5,7 +5,7 @@
 
 bool ContainSameDigits(char[], char[]);
 
-bool main()
+int main()
 {
 	char a[11], b[11]; // a and b have 10 digits max
 	std::cin.getline(a, 10, ' ');
