@@ -8,7 +8,7 @@ int Occurences(char[], char[]);
 int main()
 {
 	char a[11], b[11]; // a and b have 10 digits max
-	std::cin.getline(a, 10);
+	std::cin.getline(a, 10, ' ');
 	std::cin.getline(b, 10);
 
 	std::cout << Occurences(a, b) << std::endl;
