@@ -16,7 +16,7 @@ bool main()
 	unsigned long long currCoefficient = 1; // current coefficient
 	for (int i = 1; i <= n / 2; i++) 
 	{
-		currCoefficient = currCoefficient * (n + 1 - i) / i;
+		currCoefficient = currCoefficient * (n + 1 - i) / i; // multiplicative formula
 		// *= is not possible in the case above as the formula on the 
 		// right is calculated first, which leads to loss of info
 		coefficients[i] = currCoefficient;
