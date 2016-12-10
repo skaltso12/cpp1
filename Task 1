@@ -1,0 +1,81 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+bool IsPointIn(double, double);
+double DistanceInTheField(double, double, double, double);
+double f(double);
+
+int main()
+{
+	int n;
+	cin >> n;
+	double x1, y1; // first coordinates
+	cin >> x1 >> y1;
+	bool isX1Y1in = IsPointIn(x1, y1);
+
+	double distance = 0;
+	for (int i = 0; i < n - 1; i++)
+	{
+		double x2, y2; // second coordinates
+		cin >> x2 >> y2;
+		bool isX2Y2in = IsPointIn(x2, y2);
+		double strDistance = 0; // straight distance between two points
+
+		if (!isX1Y1in && !isX2Y2in) // both points are out of the field
+		{
+			strDistance = 0;
+		}
+		else if (!isX1Y1in) // first point is out of the field
+		{
+			strDistance = DistanceInTheField(x2, y2, x1, y1);
+		}
+		else if (!isX2Y2in) // second point is out of the field
+		{
+			strDistance = DistanceInTheField(x1, y1, x2, y2);
+		}
+		else // both points are in the field
+			strDistance = sqrt(pow(abs(y2 - y1), 2)
+				+ pow(abs(x2 - x1), 2));
+		distance += f(strDistance);
+		x1 = x2;
+		y1 = y2;
+		isX1Y1in = isX2Y2in;
+	}
+	cout << setprecision(3) << setiosflags(ios::fixed) << distance << endl;
+
+	return 0;
+}
+
+
+// checks whether a point is in the field
+bool IsPointIn(double x, double y)
+{
+	const double Eps = 1.e-2; // precision of comparison
+
+	if (abs(x) >= 5 + Eps || abs(y) >= 2 + Eps) return false;
+	return true;
+}
+
+// calculating straignt distance in the field 
+// using Pithagorian theorem and relations
+double DistanceInTheField(double xIn, double yIn, double xOut, double yOut)
+{
+	double relation1 = sqrt(pow(abs(yOut - yIn), 2)
+		+ pow(abs(xOut - xIn), 2)) / abs(yOut - yIn);
+	if (yOut >= 2) return (2 - yIn) * relation1;
+	if (yOut <= -2) return (-2 - yIn) * relation1;
+
+	double relation2 = sqrt(pow(abs(yOut - yIn), 2)
+		+ pow(abs(xOut - xIn), 2)) / abs(xOut - xIn);
+	if (yOut >= 5) return (5 - xIn) * relation2;
+	if (yOut <= -5) return (-5 - xIn) * relation2;
+}
+
+// calculating approximate distance
+double f(double x)
+{
+	const double pi = 3.14;
+	return (pi * x / 2 + x) / 2;
+}
