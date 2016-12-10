@@ -1,0 +1,38 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <string.h>
+
+
+int main()
+{
+	int nq; // number of requests
+	std::cin >> nq;
+
+	for (int i = 0; i < nq; i++)
+	{
+		int p1, n, p2;
+		std::cin >> p1 >> n >> p2;
+
+		int maxV = 0;
+		int currV = 1; // current power
+
+		if (n == 0) std::cout << "infinity";
+		else
+		{
+			while (n % (int)pow(p1, currV) == 0)
+			{
+				currV++;
+				maxV++;
+			}
+			while (n % (int)pow(p2, currV) == 0)
+			{
+				currV++;
+				maxV++;
+			}
+			std::cout << maxV;
+		}
+		std::cout << std::endl;
+	}
+	return 0;
+}
