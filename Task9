@@ -12,10 +12,10 @@ int main()
 	bool num1FromNum2 = true;
 	while (num1 / 10 > 0 || num1 % 10 > 0 && num1FromNum2)
 	{
-		if (num1 % 10 != num2 % 10)
+		if (num1 % 10 != num2 % 10) // two different digits
 		{
 			num1 /= 10;
-			if (num1 % 10 != num2 % 10)
+			if (num1 % 10 != num2 % 10) // two different digits after crossing out
 				num1FromNum2 = false;
 		}
 		num1 /= 10;
