@@ -1,0 +1,26 @@
+1. Zad.
+#include <iostream>
+
+void RecursivePrinting(short n)
+{
+	if (n == 1)
+	{
+		std::cout << 1;
+		return;
+	}
+
+	RecursivePrinting(n - 1);
+	std::cout << n;
+	RecursivePrinting(n - 1);
+}
+
+int main()
+{
+	short n;
+	std::cin >> n;
+
+	RecursivePrinting(n);
+	std::cout << std::endl;
+
+	return 0;
+}
