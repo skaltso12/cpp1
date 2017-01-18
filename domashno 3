@@ -252,3 +252,40 @@ int main()
 
 	return 0;
 }
+
+8. Zad.
+#include <iostream>
+
+int main()
+{
+	const int maxElements = 99999;
+	const short divider = 3;
+
+	int arrayNumbers[maxElements];
+
+	int n;
+	std::cin >> n;
+
+	for (int i = 0; i < n; i++)
+		std::cin >> arrayNumbers[i];
+
+	bool firstElement = false;
+
+	for (int j = 0; j < divider; j++)
+	{
+		for (int i = 0; i < n; i++)
+		{
+			short remainder = arrayNumbers[i] % divider;
+			if (remainder == j ||
+				remainder == j - divider)
+			{
+				std::cout << (firstElement ? " " : "") << arrayNumbers[i];
+				firstElement = true;
+			}
+		}
+	}
+
+	std::cout << std::endl;
+
+	return 0;
+}
