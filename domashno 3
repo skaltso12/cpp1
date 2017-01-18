@@ -86,3 +86,169 @@ int main()
 
 	return 0;
 }
+
+2. Zad. Nachenki
+
+#include <iostream>
+
+void RecursivePrinting(short *arrayNumbers, short number)
+{
+	short i = 0;
+	while (arrayNumbers[i] >= arrayNumbers[i + 1] && i < number - 1) i++;
+	if (i == number - 1)
+	{
+		std::cout << number << " = " << arrayNumbers[0];
+		short j = 1;
+		while (arrayNumbers[j] != 0 && j < number) 
+		{
+			std::cout << " + " << arrayNumbers[j];
+			j++;
+		}
+		std::cout << std::endl;
+
+		//for (int i = number - 1; i > 0; i--)
+		//	if (arrayNumbers[i] == 1 || arrayNumbers[i] == 0 
+		//		&& arrayNumbers[i - 1] != 0 && arrayNumbers[i - 1] != 1)
+		//	{
+		//		if (arrayNumbers[i - 1] != 1)
+		//		{
+		//			arrayNumbers[i - 1]--;
+		//			arrayNumbers[i]++;
+		//			RecursivePrinting(arrayNumbers, number);
+		//		}
+		//		return;
+		//	}
+
+		//arrayNumbers[0]--;
+		//arrayNumbers[1]++;
+
+		//RecursivePrinting(arrayNumbers, number);
+
+		/*short startIndex;
+
+		for (int i = number - 1; i > 0; i--)
+			if (arrayNumbers[i] != 1 && arrayNumbers[i] != 0)
+				startIndex = i;
+
+
+		for (int k = 1; k < number; k++)
+		{
+			for (int j = startIndex; j < number / (number - k); j++)
+			{
+				arrayNumbers[j] = number - k;
+			}
+			arrayNumbers[number / (number - k)] = number % (number - k);
+		}
+		RecursivePrinting(arrayNumbers, number - 1);*/
+
+
+	}
+	return;
+
+}
+
+int main()
+{
+	short number;
+	std::cin >> number;
+
+	short arrayNumbers[32] = { number };
+
+	RecursivePrinting(arrayNumbers, number);
+
+	return 0;
+}
+
+7. Zad. 
+#include <iostream>
+
+bool isLetter(char symbol)
+{
+	return symbol >= 'a' && symbol <= 'z' || symbol >= 'A' && symbol <= 'Z';
+}
+
+bool isVowel(char symbol)
+{
+	return symbol == 'A' || symbol == 'a' ||
+		symbol == 'E' || symbol == 'e' ||
+		symbol == 'I' || symbol == 'i' ||
+		symbol == 'O' || symbol == 'o' ||
+		symbol == 'U' || symbol == 'u' ||
+		symbol == 'Y' || symbol == 'y';
+}
+
+bool isLetterHigh(char letter)
+{
+	return  letter >= 'A' && letter <= 'Z';
+}
+
+void PigLatinTranslator(char *text, int wordStartIndex, int wordEndIndex)
+{
+	bool IsWordHigh = isLetterHigh(text[wordStartIndex])
+		&& isLetterHigh(text[wordStartIndex + 1]);
+
+	if (isVowel(text[wordStartIndex]))
+	{
+		for (int j = wordStartIndex; j <= wordEndIndex; j++)
+			std::cout << text[j];
+
+		if (IsWordHigh)
+			std::cout << "WAY";
+		else
+			std::cout << "way";
+
+		return;
+	}
+
+
+	int firstVowel = wordStartIndex + 1;
+
+	while (!isVowel(text[firstVowel])) firstVowel++;
+
+	if (isLetterHigh(text[wordStartIndex]) && !IsWordHigh)
+	{
+		text[firstVowel] = text[firstVowel] + ('A' - 'a');
+		text[wordStartIndex] = text[wordStartIndex] - ('A' - 'a');
+	}
+
+	for (int k = firstVowel; k <= wordEndIndex; k++)
+		std::cout << text[k];
+
+	for (int p = wordStartIndex; p < firstVowel; p++)
+		std::cout << text[p];
+
+	if (IsWordHigh)
+		std::cout << "AY";
+	else
+		std::cout << "ay";
+
+}
+
+int main()
+{
+	char text[10001];
+	std::cin.getline(text, 10001);
+
+	int i = 0;
+
+	do
+	{
+		while (!isLetter(text[i]) && text[i] != '\0')
+		{
+			std::cout << text[i];
+			i++;
+		}
+		if (text[i] == '\0') continue;
+		int wordStartIndex = i++;
+
+		while (isLetter(text[i])) i++;
+		int wordEndIndex = i - 1;
+
+		PigLatinTranslator(text, wordStartIndex, wordEndIndex);
+
+	} while (text[i] != '\0');
+
+	std::cout << std::endl;
+
+	return 0;
+}
