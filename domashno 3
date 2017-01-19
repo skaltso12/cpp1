@@ -289,3 +289,111 @@ int main()
 
 	return 0;
 }
+
+5. Zad.
+#include <iostream>
+
+typedef const short numeralSystem;
+numeralSystem decimal = 10;
+numeralSystem hexademical = 16;
+numeralSystem binary = 2;
+numeralSystem octal = 8;
+
+bool isPartOfNumber(char symbol)
+{
+	return symbol != ' ' && symbol != '+';
+}
+
+short digit(char symbol)
+{
+	switch (symbol)
+	{
+		case '0': return 0; 
+		case '1': return 1;
+		case '2': return 2;
+		case '3': return 3;
+		case '4': return 4;
+		case '5': return 5;
+		case '6': return 6;
+		case '7': return 7;
+		case '8': return 8;
+		case '9': return 9;
+		case 'A': return 10;
+		case 'B': return 11;
+		case 'C': return 12;
+		case 'D': return 13;
+		case 'E': return 14;
+		case 'F': return 15;
+	}
+}
+
+unsigned long long conversion(char *expression,
+	int realNumberStartIndex, int numberEndIndex, 
+	short const numeralSystem)
+{
+	unsigned long long result = 0;
+
+	for (int i = numberEndIndex; i >= realNumberStartIndex; i--)
+		result += digit(expression[i]) 
+		* pow(numeralSystem, numberEndIndex - i);
+
+	return result;
+}
+
+unsigned long long convertToDecimal(char *expression,
+	int numberStartIndex, int numberEndIndex)
+{
+	short firstDigit = digit(expression[numberStartIndex]);
+
+	if (numberStartIndex == numberEndIndex)
+		return firstDigit;
+
+	if (firstDigit != 0)
+	{
+		return conversion(expression, numberStartIndex,
+			numberEndIndex, decimal);
+	}
+
+	char secondDigit = expression[numberStartIndex + 1];
+
+	switch (secondDigit)
+	{
+		case 'b' : return conversion(expression, numberStartIndex + 2,
+		numberEndIndex, binary);
+		case 'x': return conversion(expression, numberStartIndex + 2,
+			numberEndIndex, hexademical);
+		default : return conversion(expression, numberStartIndex + 1,
+			numberEndIndex, octal);
+	}
+}
+
+int main()
+{
+	unsigned long long result = 0;
+	
+	const short maxLen = 1001;
+	char expression[maxLen];
+	std::cin.getline(expression, maxLen);
+
+	int i = 0;
+
+	do
+	{
+		while (!isPartOfNumber(expression[i]) && 
+			expression[i] != '\0') i++;
+		if (expression[i] == '\0') continue;
+		int numberStartIndex = i++;
+
+		while (isPartOfNumber(expression[i]) &&
+			expression[i] != '\0') i++;
+		int numberEndIndex = i - 1;
+
+		result += convertToDecimal(expression, 
+			numberStartIndex, numberEndIndex);
+
+	} while (expression[i] != '\0');
+
+	std::cout << result << std::endl;
+
+	return 0;
+}
