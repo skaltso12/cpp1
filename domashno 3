@@ -463,3 +463,98 @@ int main()
 
 	return 0;
 }
+
+9. Zad.
+#include <iostream>
+
+const int maxOffers = 60000; // max
+const short infoFields = 4;
+const short firstColumn = 0;
+const short secondColumn = 1;
+const short firstRow = 0;
+
+void InputMatrix(int arrayOffers[][infoFields], unsigned numberOffers)
+{
+	for (int i = 0; i < numberOffers; i++)
+		for (int j = 0; j < infoFields; j++)
+			std::cin >> arrayOffers[i][j];
+}
+
+void InputArray(int *arrayMin, int infoFieldsMin)
+{
+	for (int i = 0; i < infoFieldsMin; i++)
+		std::cin >> arrayMin[i];
+}
+
+void OutputMatrix(int arrayOffers[][infoFields], unsigned numberOffers)
+{
+	for (int i = 0; i < numberOffers; i++)
+	{
+		for (int j = 0; j < infoFields; j++)
+			std::cout << arrayOffers[i][j] << " ";
+		std::cout << std::endl;
+	}
+}
+
+void Swap(int arrayOffers[][infoFields], int swapRow1, int SwapRow2,
+	int beginSwapColumn, int endSwapColumn)
+{
+	for (int i = beginSwapColumn; i < endSwapColumn; i++)
+	{
+		double temp = arrayOffers[swapRow1][i];
+		arrayOffers[swapRow1][i] = arrayOffers[SwapRow2][i];
+		arrayOffers[SwapRow2][i] = temp;
+	}
+}
+
+int main()
+{
+	unsigned numberOffers;
+	std::cin >> numberOffers;
+
+	int arrayOffers[maxOffers][infoFields];
+	int arrayMin[infoFields - 1]; // without the price
+
+	InputMatrix(arrayOffers, numberOffers);
+	InputArray(arrayMin, infoFields - 1);
+
+	// organizing offers
+	for (int i = firstRow; i < numberOffers - 1; i++)
+		for (int j = i + 1; j < numberOffers; j++)
+
+			if (arrayOffers[i][firstColumn]
+		> arrayOffers[j][firstColumn])
+				Swap(arrayOffers, i, j, firstColumn, infoFields);
+
+	bool anyOfferEnough = false;
+
+	//printing the right offers
+	for (int i = firstRow; i < numberOffers; i++)
+	{
+		bool isOfferEnough = true;
+		bool pricePrint = false;
+
+		for (int j = secondColumn; j < infoFields; j++)
+			if (arrayOffers[i][j] < arrayMin[j - 1])
+			{
+				j += infoFields;
+				isOfferEnough = false;
+			}
+
+		if (isOfferEnough)
+		{
+			anyOfferEnough = true;
+			for (int k = firstRow; k < infoFields; k++)
+			{
+				if (pricePrint) std::cout << " ";
+				std::cout << arrayOffers[i][k];
+				pricePrint = true;
+			}
+			std::cout << std::endl;
+		}
+	}
+
+	if (!anyOfferEnough) std::cout << "No solution" << std::endl;
+
+	return 0;
+}
