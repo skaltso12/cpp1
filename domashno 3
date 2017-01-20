@@ -486,16 +486,6 @@ void InputArray(int *arrayMin, int infoFieldsMin)
 		std::cin >> arrayMin[i];
 }
 
-void OutputMatrix(int arrayOffers[][infoFields], unsigned numberOffers)
-{
-	for (int i = 0; i < numberOffers; i++)
-	{
-		for (int j = 0; j < infoFields; j++)
-			std::cout << arrayOffers[i][j] << " ";
-		std::cout << std::endl;
-	}
-}
-
 void Swap(int arrayOffers[][infoFields], int swapRow1, int SwapRow2,
 	int beginSwapColumn, int endSwapColumn)
 {
