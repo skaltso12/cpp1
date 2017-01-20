@@ -397,3 +397,69 @@ int main()
 
 	return 0;
 }
+
+6. Zad.
+#include <iostream>
+
+const int maxStudents = 1000; // ???
+const short infoFields = 3;
+const short firstColumn = 0;
+const short secondColumn = 1;
+const short firstRow = 0;
+
+void InputArray(double arrayResults[][infoFields], unsigned numberRows)
+{
+	for (int i = 0; i < numberRows; i++)
+		for (int j = 0; j < infoFields; j++)
+			std::cin >> arrayResults[i][j];
+}
+
+void OutputArray(double arrayResults[][infoFields], unsigned numberRows)
+{
+	for (int i = 0; i < numberRows; i++)
+	{
+		for (int j = 0; j < infoFields; j++)
+			std::cout << arrayResults[i][j] << " ";
+		std::cout << std::endl;
+	}
+}
+
+void Swap(double arrayResults[][infoFields], int swapRow1, int SwapRow2,
+	int beginSwapColumn, int endSwapColumn)
+{
+	for (int i = beginSwapColumn; i < endSwapColumn; i++)
+	{
+		double temp = arrayResults[swapRow1][i];
+		arrayResults[swapRow1][i] = arrayResults[SwapRow2][i];
+		arrayResults[SwapRow2][i] = temp;
+	}
+}
+
+int main()
+{
+	unsigned numberRows;
+	std::cin >> numberRows;
+
+	double arrayResults[maxStudents][infoFields];
+
+	InputArray(arrayResults, numberRows);
+
+	for (int i = firstRow; i < numberRows - 1; i++)
+		for (int j = i + 1; j < numberRows; j++)
+
+			if (arrayResults[i][firstColumn]
+		> arrayResults[j][firstColumn])
+				Swap(arrayResults, i, j, firstColumn, infoFields);
+
+			else if (arrayResults[i][firstColumn]
+				== arrayResults[j][firstColumn])
+			{
+				if (arrayResults[i][secondColumn]
+					> arrayResults[j][secondColumn])
+					Swap(arrayResults, i, j, secondColumn, infoFields);
+			}
+
+	OutputArray(arrayResults, numberRows);
+
+	return 0;
+}
