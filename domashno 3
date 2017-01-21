@@ -514,7 +514,15 @@ int main()
 
 			if (arrayOffers[i][firstColumn]
 		> arrayOffers[j][firstColumn])
+			{
+				for (int k = i + 1; k < numberOffers; k++)
+					if (arrayOffers[i][firstColumn] ==
+						arrayOffers[k][firstColumn] && k < j)
+					{
+						Swap(arrayOffers, i, k, firstColumn, infoFields);
+					}
 				Swap(arrayOffers, i, j, firstColumn, infoFields);
+			}
 
 	bool anyOfferEnough = false;
 
