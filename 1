@@ -1,0 +1,230 @@
+// 1. Zad. VisibleIndians
+
+#include <iostream>
+using namespace std;
+
+short visibleIndians(int Indians[], int numberOfIndians)
+{
+	int maxHeight = Indians[numberOfIndians - 1];
+	int numberOfVisibleIndians = 1;
+
+	int i = numberOfIndians - 1;
+	while (i > 0)
+	{
+		if (Indians[i - 1] > Indians[i])
+			numberOfVisibleIndians++;
+		i--;
+	}
+	return numberOfVisibleIndians;
+}
+
+int main()
+{
+	int numberOfIndians;
+	cin >> numberOfIndians;
+
+	int Indians[100];
+	for (int i = 0; i < numberOfIndians; i++)
+		cin >> Indians[i];
+
+	cout << visibleIndians(Indians, numberOfIndians);
+
+	return 0;
+}
+
+2. Zad. CompareArrays
+short weightOfArray(unsigned array[], short len)
+{
+	int weight = 0;
+	for (int i = 0; i < len; i++)
+	{
+		int currElement;
+		currElement = array[i];
+		while (currElement > 0)
+		{
+			weight += currElement % 10;
+			currElement /= 10;
+		}
+	}
+	return weight;
+}
+
+void enterArray(unsigned array[], short len)
+{
+	for (int i = 0; i < len; i++)
+		cin >> array[i];
+}
+
+int compareArrays(int weightFirstArray, int weightSecondArray)
+{
+	if (weightFirstArray == weightSecondArray) return 0;
+	if (weightFirstArray > weightSecondArray) return 1;
+	return -1;
+}
+
+int main()
+{
+	short lenFirstArray;
+	cin >> lenFirstArray;
+
+	unsigned firstArray[100];
+	enterArray(firstArray, lenFirstArray);
+
+	short lenSecondArray;
+	cin >> lenSecondArray;
+
+	unsigned SecondArray[100];
+	enterArray(SecondArray, lenSecondArray);
+
+	int weightFirstArray = weightOfArray(firstArray, lenFirstArray);
+	int weightSecondArray = weightOfArray(SecondArray, lenSecondArray);
+
+	cout << compareArrays(weightFirstArray, weightSecondArray);
+}
+
+3. Zad. Minimal occurences
+int minOccurs(char expression[])
+{
+	int minOccurs = 0;
+
+	int lenExpression = strlen(expression);
+	for (int i = 0; i < lenExpression; i++)
+	{
+		char symbol = expression[i];
+		if (symbol >= 'a' && symbol <= 'z' || symbol >= 'A' && symbol <= 'Z')
+		{
+			int currOccurs = 0; // increased when going through the array for a second time
+			for (int j = 0; j < lenExpression; j++)
+			{
+				char currSymbol = expression[j];
+				if (symbol == currSymbol ||
+					abs(symbol - currSymbol) == abs('a' - 'A')) currOccurs++;
+			}
+			if (minOccurs == 0) minOccurs = currOccurs;
+			if (currOccurs < minOccurs) minOccurs = currOccurs;
+		}
+	}
+
+	return minOccurs;
+}
+
+int main()
+{
+	char expression[100];
+	cin.getline(expression, 100);
+
+	cout << minOccurs(expression);
+
+	return 0;
+}
+
+4. Zad. Bitwise comparison
+void swap(unsigned& number1, unsigned& number2)
+{
+	unsigned temp = number1;
+	number1 = number2;
+	number2 = temp;
+}
+
+bool oneBit(unsigned number1, unsigned number2)
+{
+	if (number1 > number2) swap(number1, number2);
+
+	bool crossedLetter = false;
+
+	while (number2 > 0)
+	{
+		if (number1 % 2 != number2 % 2 && !crossedLetter)
+		{
+			number2 /= 2;
+			if (number1 % 2 != number2 % 2) return false;
+			crossedLetter = true;
+		}
+
+		if (number1 % 2 != number2 % 2 && crossedLetter) return false;
+
+		number1 /= 2;
+		number2 /= 2;
+	}
+
+	return true;
+}
+
+int main()
+{
+	unsigned number1, number2;
+	cin >> number1 >> number2;
+
+	cout << oneBit(number1, number2);
+
+	return 0;
+}
+
+5. Zad. SandWatch
+int main()
+{
+	short n;
+
+	do
+	{
+		cin >> n;
+	} while (n < 1 || n > 60);
+
+	short const halfWatchRows = n / 2;
+	short intervals = 0;
+	bool dotInTheMiddle = n % 2 == 0;
+	short rowStartNumber = 1;
+
+	for (int i = 0; i < halfWatchRows; i++)
+	{
+		for (int k = 0; k < intervals; k++)
+			cout << " ";
+
+		for (int j = rowStartNumber; j <= n; j++)
+		{
+			cout << j;
+
+			if (j == n) continue;
+			cout << " ";
+		}
+
+		cout << endl;
+
+		n--;
+		intervals += 2;
+		rowStartNumber++;
+	}
+
+	intervals--;
+	for (int k = 0; k < intervals; k++)
+		cout << " ";
+
+	if (dotInTheMiddle) cout << '*';
+	else cout << " " << (halfWatchRows + 1);
+	cout << endl;
+
+	intervals--;
+	rowStartNumber--;
+	n++;
+	for (int i = 0; i < halfWatchRows; i++)
+	{
+		for (int k = 0; k < intervals; k++)
+			cout << " ";
+
+		for (int j = rowStartNumber; j <= n; j++)
+		{
+			cout << j;
+
+			if (j == n) continue;
+			cout << " ";
+		}
+
+		cout << endl;
+
+		n++;
+		intervals -= 2;
+		rowStartNumber--;
+	}
+
+	return 0;
+}
