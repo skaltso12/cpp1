@@ -1,9 +1,2 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-# cpp1
-=======
-# cpp2
->>>>>>> cpp2/master
-=======
-# cpp3
->>>>>>> cpp3/master
+All programming tasks from Uni from 
+"Programming Introduction in C++" course
