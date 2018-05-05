@@ -1,0 +1,33 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <string.h>
+
+bool ContainSameDigits(char[], char[]);
+
+int main()
+{
+	char a[11], b[11]; // a and b have 10 digits max
+	std::cin.getline(a, 10, ' ');
+	std::cin.getline(b, 10);
+
+	if (!ContainSameDigits(a, b) || !ContainSameDigits(b, a))
+	{
+		std::cout << "No";
+	}
+	else
+		std::cout << "Yes";
+	std::cout << std::endl;
+	return 0;
+}
+
+// are the digits of one number contained in the other
+bool ContainSameDigits(char str1[11], char str2[11])
+{
+	int i = 0; // index running through all digits
+	if (str2[i] == '-') i++;
+	int len = strlen(str2); // length of second number
+
+	while (strchr(str1, str2[i]) && i < len - 1) i++;
+	return strchr(str1, str2[i]);
+}

@@ -1,0 +1,22 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <string.h>
+
+int main()
+{
+	int n, m, y;
+	std::cin >> n >> m >> y;
+
+	bool existnumber = false;
+	for (int x = 1; x < m; x++)
+		if ((int)pow(x, n) % m == y) // converting pow from double to int
+		{
+			if (existnumber) std::cout << " ";
+			std::cout << x;
+			existnumber = true;
+		}
+	if (!existnumber) std::cout << -1;
+	std::cout << std::endl;
+	return 0;
+}

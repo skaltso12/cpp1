@@ -1,0 +1,28 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <string.h>
+
+
+int main()
+{
+	int n;
+	double d;
+	std::cin >> n >> d;
+
+	double aN, vN = 0, s = 0; // aN/vN;s - accelearation/speed at a given n; whole distance
+
+	for (int i = 0; i < n; i++)
+	{
+		std::cin >> aN;
+
+		s += vN * d + aN * d * d / 2; // calculating distance
+
+		vN += aN * d; // calculating speed
+		if (vN < 0) vN = 0; // correcting negative speed
+
+	}
+
+	std::cout << s << std::endl;
+	return 0;
+}

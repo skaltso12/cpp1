@@ -1,0 +1,55 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+bool IsPointIn(double, double);
+
+int main()
+{
+	int n;
+	cin >> n;
+	double x1, y1; // first coordinates
+	cin >> x1 >> y1;
+	bool isX1Y1in = IsPointIn(x1, y1);
+
+	double distance = 0;
+	for (int i = 0; i < n - 1; i++)
+	{
+		double x2, y2; // second coordinates
+		cin >> x2 >> y2;
+		bool isX2Y2in = IsPointIn(x2, y2);
+
+		if (!isX1Y1in && !isX2Y2in) // both points are out of the field
+		{
+			x1 = x2; 
+			y1 = y2; 
+			continue;
+		}
+		if (!isX1Y1in) // changing coordinates of the point that is out of the field
+		{
+
+		}
+		if (!isX2Y2in) // changing coordinates of the point that is out of the field
+		{
+
+		}
+		// distance += f(g(x)); // g(x) calculates the straight distance between 2 points
+		x1 = x2;
+		y1 = y2;
+		isX1Y1in = isX2Y2in;
+	}
+	cout << setprecision(3) << setiosflags(ios::fixed) << distance << endl;
+
+	return 0;
+}
+
+
+// checks whether a point is in the field
+bool IsPointIn(double x, double y)
+{
+	const double Eps = 1.e-2; // precision of comparison
+
+	if (abs(x) >= 5 + Eps || abs(y) >= 2 + Eps) return false;
+	return true;
+}

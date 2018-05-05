@@ -1,0 +1,53 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <string.h>
+
+bool CorrectNumber(int);
+void SumNumbers();
+int n, m, k;
+
+int main()
+{
+	std::cin >> n >> m >> k;
+
+	if (CorrectNumber(n) && CorrectNumber(m))
+	{
+		SumNumbers();
+	}
+	else
+		std::cout << "Bad input data!";
+	std::cout << std::endl;
+	return 0;
+}
+
+// checking if number is correct
+bool CorrectNumber(int number)
+{
+	while (number % 10 < k && number > 0) number /= 10;
+	return number % 10 < k;
+}
+
+// Cak=lculating sum of the two numbers
+void SumNumbers()
+{
+	int sumNumbers[10]; // sum in reversed order
+
+	int i = -1; // array index
+	int carry = 0; // if sum of digits is not less than k
+	while (n / 10 > 0 || m / 10 > 0 
+		|| n % 10 > 0 || m % 10 > 0) 
+	{
+		i++;
+		int sumDigits = n % 10 + m % 10 + carry;
+		sumNumbers[i] = (sumDigits) % k;
+		carry = (sumDigits) / k;
+		n /= 10;
+		m /= 10;
+	}
+	if (carry == 1) sumNumbers[++i] = 1;
+
+	//printing the number in correct order
+	for (; i >= 0; i--)
+		std::cout << sumNumbers[i];
+}

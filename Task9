@@ -1,0 +1,29 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <string.h>
+
+
+int main()
+{
+	unsigned num1, num2;
+	std::cin >> num1 >> num2;
+
+	bool num1FromNum2 = true;
+	while (num1 / 10 > 0 || num1 % 10 > 0 && num1FromNum2)
+	{
+		if (num1 % 10 != num2 % 10) // two different digits
+		{
+			num1 /= 10;
+			if (num1 % 10 != num2 % 10) // two different digits after crossing out
+				num1FromNum2 = false;
+		}
+		num1 /= 10;
+		num2 /= 10;
+	}
+
+	if (num1FromNum2) std::cout << "Yes"; else
+		std::cout << "No";
+	std::cout << std::endl;
+	return 0;
+}
